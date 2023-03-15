@@ -1,13 +1,24 @@
 import 'package:flutter/material.dart';
-import 'package:shop/data/dummy_products.dart';
-import 'package:shop/widgets/product_item.dart';
+import 'package:provider/provider.dart';
+import 'package:shop/model/product_list.dart';
 
-import '../model/product.dart';
+import '../widgets/product_grid.dart';
 
-class ProductsOverviewPage extends StatelessWidget {
-  final List<Product> loadProducts = dummyProducts;
-  ProductsOverviewPage({super.key});
+enum FilterOptions {
+  Favorite,
+  All,
+}
 
+//Converte para stateful
+class ProductsOverviewPage extends StatefulWidget {
+  const ProductsOverviewPage({super.key});
+
+  @override
+  State<ProductsOverviewPage> createState() => _ProductsOverviewPageState();
+}
+
+class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
+  bool _showFavoriteOnly = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -15,21 +26,36 @@ class ProductsOverviewPage extends StatelessWidget {
         title: const Text(
           'Minha Loja',
         ),
+        actions: [
+          PopupMenuButton(
+            itemBuilder: (_) => [
+              const PopupMenuItem(
+                value: FilterOptions.Favorite,
+                child: Text(
+                  "Somente Favoritos",
+                ),
+              ),
+              const PopupMenuItem(
+                value: FilterOptions.All,
+                child: Text(
+                  "Todos",
+                ),
+              ),
+            ],
+            onSelected: (FilterOptions selectedValue) {
+              setState(() {
+                if (selectedValue == FilterOptions.Favorite) {
+                  _showFavoriteOnly = true;
+                } else {
+                  _showFavoriteOnly = false;
+                }
+              });
+            },
+          )
+        ],
         centerTitle: true,
       ),
-      body: GridView.builder(
-        padding: const EdgeInsets.all(10),
-        itemCount: loadProducts.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio: 3 / 2,
-          crossAxisSpacing: 10,
-          mainAxisSpacing: 10,
-        ),
-        itemBuilder: (context, index) {
-          return ProductItem(product: loadProducts[index]);
-        },
-      ),
+      body: ProductWidget( showFavoriteOnly: _showFavoriteOnly),
     );
   }
 }
