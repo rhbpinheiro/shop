@@ -1,7 +1,11 @@
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/model/product_list.dart';
 
+import '../model/cart.dart';
+import '../utils/app_routes.dart';
+import '../widgets/app_drawer.dart';
+import '../widgets/badge.dart';
 import '../widgets/product_grid.dart';
 
 enum FilterOptions {
@@ -51,11 +55,24 @@ class _ProductsOverviewPageState extends State<ProductsOverviewPage> {
                 }
               });
             },
+          ),
+          Consumer<Cart>(
+            child: IconButton(
+              onPressed: () {
+                Navigator.of(context).pushNamed(AppRoutes.CART);
+              },
+              icon: const Icon(Icons.shopping_cart),
+            ),
+            builder: (ctx, cart, child) => BadgeCart(
+              value: cart.itemsCount.toString(),
+              child: child!,
+            ),
           )
         ],
         centerTitle: true,
       ),
-      body: ProductWidget( showFavoriteOnly: _showFavoriteOnly),
+      body: ProductWidget(showFavoriteOnly: _showFavoriteOnly),
+      drawer: AppDrawer(),
     );
   }
 }

@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/utils/app_routes.dart';
 
+import '../model/cart.dart';
 import '../model/product.dart';
 
 class ProductItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
+    final cart = Provider.of<Cart>(context);
     //Se só um elemento da tela sobre alteração você ´pde deixar o listen false
     //e envolver o widget que deve ser renderizado com um Consumer para fazer isso
     // no caso abaixo
@@ -66,7 +68,7 @@ class ProductItem extends StatelessWidget {
         footer: GridTileBar(
           backgroundColor: Colors.black54,
           leading: Consumer<Product>(
-            builder: (context, product, _)=>IconButton(
+            builder: (context, product, _) => IconButton(
               onPressed: () {
                 product.toggleFavorites();
               },
@@ -77,11 +79,13 @@ class ProductItem extends StatelessWidget {
             ),
           ),
           title: Text(
-            product.title,
+            product.name,
             textAlign: TextAlign.center,
           ),
           trailing: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              cart.addItem(product);
+            },
             icon: const Icon(
               Icons.shopping_cart,
               color: Colors.deepOrange,

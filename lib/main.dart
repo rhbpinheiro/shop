@@ -1,24 +1,39 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:shop/model/product_list.dart';
+import 'package:shop/pages/cart_page.dart';
+import 'package:shop/pages/orders_page.dart';
 import 'package:shop/pages/product_detail_page.dart';
+import 'package:shop/pages/products_overview_page.dart';
+
 import 'package:shop/utils/app_routes.dart';
 
-import 'pages/products_overview_page.dart';
+import 'model/cart.dart';
+import 'model/order_list.dart';
+import 'model/product_list.dart';
 
 void main() {
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+  const MyApp({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return ChangeNotifierProvider(
-      create: (_) => ProductList(),
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => ProductList(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => Cart(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => OrderList(),
+        ),
+      ],
       child: MaterialApp(
-        debugShowCheckedModeBanner: false,
+        title: 'Flutter Demo',
         theme: ThemeData(
           colorScheme: ColorScheme.fromSwatch().copyWith(
             primary: Colors.purple,
@@ -26,10 +41,14 @@ class MyApp extends StatelessWidget {
           ),
           fontFamily: 'Lato',
         ),
-        home: ProductsOverviewPage(),
+        // home: const ProductsOverviewPage(),
         routes: {
-          AppRoutes.PRODUCT_DETAIL: (context) => ProductDetailPage(),
+          AppRoutes.HOME: (ctx) => const ProductsOverviewPage(),
+          AppRoutes.PRODUCT_DETAIL: (ctx) => const ProductDetailPage(),
+          AppRoutes.CART: (ctx) => const CartPage(),
+          AppRoutes.ORDERS: (ctx) => const OrdersPage(),
         },
+        debugShowCheckedModeBanner: false,
       ),
     );
   }
