@@ -1,115 +1,43 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
-import 'package:shop/utils/app_routes.dart';
 
-import '../model/cart.dart';
 import '../model/product.dart';
 
 class ProductItem extends StatelessWidget {
+  final Product product;
+
+  const ProductItem(
+    this.product, {
+    Key? key,
+  }) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
-    final product = Provider.of<Product>(context, listen: false);
-    final cart = Provider.of<Cart>(context);
-    //Se só um elemento da tela sobre alteração você ´pde deixar o listen false
-    //e envolver o widget que deve ser renderizado com um Consumer para fazer isso
-    // no caso abaixo
-    //Outra forma de acessar o produtos usando o
-    // return ClipRRect(
-    //   borderRadius: BorderRadius.circular(10),
-    //   child: GridTile(
-    //     footer: GridTileBar(
-    //       backgroundColor: Colors.black54,
-    //       leading: IconButton(
-    //         onPressed: () {
-    //           product.toggleFavorites();
-    //         },
-    //         icon: Icon(
-    //           product.isFavorite ? Icons.favorite : Icons.favorite_border,
-    //           color: Colors.deepOrange,
-    //         ),
-    //       ),
-    //       title: Text(
-    //         product.title,
-    //         textAlign: TextAlign.center,
-    //       ),
-    //       trailing: IconButton(
-    //         onPressed: () {},
-    //         icon: const Icon(
-    //           Icons.shopping_cart,
-    //           color: Colors.deepOrange,
-    //         ),
-    //       ),
-    //     ),
-    //     child: GestureDetector(
-    //       onTap: () {
-    //         // Navigator.of(context).push(
-    //         //   MaterialPageRoute(
-    //         //     builder: (context) => ProductDetailPage(
-    //         //       product: product,
-    //         //     ),
-    //         //   ),
-    //         // );
-    //         Navigator.of(context).pushNamed(
-    //           AppRoutes.PRODUCT_DETAIL,
-    //           arguments: product,
-    //         );
-    //       },
-    //       child: Image.network(
-    //         product.imageUrl,
-    //         fit: BoxFit.cover,
-    //       ),
-    //     ),
-    //   ),
-    // );
-    //Usandom o consumer
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(10),
-      child: GridTile(
-        footer: GridTileBar(
-          backgroundColor: Colors.black54,
-          leading: Consumer<Product>(
-            builder: (context, product, _) => IconButton(
-              onPressed: () {
-                product.toggleFavorites();
-              },
-              icon: Icon(
-                product.isFavorite ? Icons.favorite : Icons.favorite_border,
-                color: Colors.deepOrange,
+    return ListTile(
+      leading: CircleAvatar(
+        backgroundImage: NetworkImage(
+          product.imageUrl,
+        ),
+      ),
+      title: Text(product.name),
+      trailing: SizedBox(
+        width: 100,
+        child: Row(
+          children: [
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.edit,
+                color: Colors.purple,
               ),
             ),
-          ),
-          title: Text(
-            product.name,
-            textAlign: TextAlign.center,
-          ),
-          trailing: IconButton(
-            onPressed: () {
-              cart.addItem(product);
-            },
-            icon: const Icon(
-              Icons.shopping_cart,
-              color: Colors.deepOrange,
+            IconButton(
+              onPressed: () {},
+              icon: const Icon(
+                Icons.delete,
+                color: Colors.red,
+              ),
             ),
-          ),
-        ),
-        child: GestureDetector(
-          onTap: () {
-            // Navigator.of(context).push(
-            //   MaterialPageRoute(
-            //     builder: (context) => ProductDetailPage(
-            //       product: product,
-            //     ),
-            //   ),
-            // );
-            Navigator.of(context).pushNamed(
-              AppRoutes.PRODUCT_DETAIL,
-              arguments: product,
-            );
-          },
-          child: Image.network(
-            product.imageUrl,
-            fit: BoxFit.cover,
-          ),
+          ],
         ),
       ),
     );

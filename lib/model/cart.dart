@@ -25,7 +25,8 @@ class Cart extends ChangeNotifier {
     );
     return total;
   }
-  //o containsKey identifica se ja existe um item através do id do produto e se 
+
+  //o containsKey identifica se ja existe um item através do id do produto e se
   //houver ele atualiza a quantidade com o update
   void addItem(Product product) {
     if (_items.containsKey(product.id)) {
@@ -57,6 +58,28 @@ class Cart extends ChangeNotifier {
 
   void clear() {
     _items = {};
+    notifyListeners();
+  }
+
+  void removeSingleItem(String productId) {
+    if (!_items.containsKey(productId)) {
+      return;
+    }
+
+    if (_items[productId]?.quantity == 1) {
+      _items.remove(productId);
+    } else {
+      _items.update(
+        productId,
+        (value) => CartItem(
+          id: value.id,
+          productId: value.productId,
+          name: value.name,
+          quantity: value.quantity - 1,
+          price: value.price,
+        ),
+      );
+    }
     notifyListeners();
   }
 
