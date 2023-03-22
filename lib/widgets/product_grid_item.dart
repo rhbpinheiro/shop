@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shop/utils/app_routes.dart';
 
-import '../model/cart.dart';
 import '../model/product.dart';
+import '../providers/cart.dart';
 
 class ProductGridItem extends StatelessWidget {
   const ProductGridItem({super.key});

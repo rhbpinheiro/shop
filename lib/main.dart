@@ -6,12 +6,13 @@ import 'package:shop/pages/product_detail_page.dart';
 import 'package:shop/pages/product_form_page.dart';
 import 'package:shop/pages/product_page.dart';
 import 'package:shop/pages/products_overview_page.dart';
+import 'package:shop/providers/cart.dart';
+import 'package:shop/providers/order_list.dart';
+import 'package:shop/providers/product_list.dart';
 
 import 'package:shop/utils/app_routes.dart';
 
-import 'model/cart.dart';
-import 'model/order_list.dart';
-import 'model/product_list.dart';
+
 
 void main() {
   runApp(const MyApp());

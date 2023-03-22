@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 import '../model/product.dart';
-import '../model/product_list.dart';
+import '../providers/product_list.dart';
 import '../utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
@@ -43,7 +43,7 @@ class ProductItem extends StatelessWidget {
                   builder: (context) => AlertDialog(
                     title: const Text('Excluir produto'),
                     content: const Text(
-                      'Quer remover esse produto?.',
+                      'Quer remover esse produto?',
                     ),
                     actions: [
                       TextButton(

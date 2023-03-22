@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
 
-import '../model/order_list.dart';
+import '../providers/order_list.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/order.dart';
 

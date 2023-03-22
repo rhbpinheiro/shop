@@ -2,8 +2,8 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 
+import '../model/order.dart';
 import 'cart.dart';
-import 'order.dart';
 
 class OrderList extends ChangeNotifier {
   final List<Order> _items = [];

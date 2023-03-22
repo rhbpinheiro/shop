@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:shop/widgets/product_grid_item.dart';
 
 import '../model/product.dart';
-import '../model/product_list.dart';
+import '../providers/product_list.dart';
 
 class ProductWidget extends StatelessWidget {
   final bool showFavoriteOnly;

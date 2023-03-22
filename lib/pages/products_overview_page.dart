@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../model/cart.dart';
+import '../providers/cart.dart';
 import '../utils/app_routes.dart';
 import '../widgets/app_drawer.dart';
 import '../widgets/badge.dart';
