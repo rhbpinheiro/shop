@@ -50,7 +50,7 @@ class MyApp extends StatelessWidget {
           AppRoutes.CART: (ctx) => const CartPage(),
           AppRoutes.ORDERS: (ctx) => const OrdersPage(),
           AppRoutes.PRODUCTS: (ctx) => const ProductPage(),
-          AppRoutes.PRODUCTS_FORM: (ctx) => const ProductFormPage(),
+          AppRoutes.PRODUCTS_FORM: (ctx) => ProductFormPage(),
         },
         debugShowCheckedModeBanner: false,
       ),

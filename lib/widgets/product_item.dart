@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../model/product.dart';
+import '../model/product_list.dart';
+import '../utils/app_routes.dart';
 
 class ProductItem extends StatelessWidget {
   final Product product;
@@ -24,14 +27,47 @@ class ProductItem extends StatelessWidget {
         child: Row(
           children: [
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context)
+                    .pushNamed(AppRoutes.PRODUCTS_FORM, arguments: product);
+              },
               icon: const Icon(
                 Icons.edit,
                 color: Colors.purple,
               ),
             ),
             IconButton(
-              onPressed: () {},
+              onPressed: () {
+                showDialog(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Excluir produto'),
+                    content: const Text(
+                      'Quer remover esse produto?.',
+                    ),
+                    actions: [
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'Não',
+                        ),
+                      ),
+                      TextButton(
+                        onPressed: () {
+                          Provider.of<ProductList>(context, listen: false)
+                              .removeProduct(product);
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'Sim',
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
               icon: const Icon(
                 Icons.delete,
                 color: Colors.red,
