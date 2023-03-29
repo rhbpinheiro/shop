@@ -12,6 +12,7 @@ class AuthPage extends StatelessWidget {
       body: Stack(
         children: [
           Container(
+            margin: EdgeInsets.only(bottom: 20),
             decoration: const BoxDecoration(
               gradient: LinearGradient(
                 colors: [

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/model/auth.dart';
 import 'package:shop/utils/app_routes.dart';
 
 import '../model/product.dart';
@@ -11,7 +12,8 @@ class ProductGridItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = Provider.of<Product>(context, listen: false);
-    final cart = Provider.of<Cart>(context);
+    final cart = Provider.of<Cart>(context, listen: false);
+    final auth = Provider.of<Auth>(context, listen: false);
 
     return ClipRRect(
       borderRadius: BorderRadius.circular(10),
@@ -21,7 +23,7 @@ class ProductGridItem extends StatelessWidget {
           leading: Consumer<Product>(
             builder: (context, product, _) => IconButton(
               onPressed: () {
-                product.toogleFavorites();
+                product.toogleFavorites(auth.token ?? '');
               },
               icon: Icon(
                 product.isFavorite ? Icons.favorite : Icons.favorite_border,
